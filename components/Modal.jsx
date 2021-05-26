@@ -8,12 +8,16 @@ export default function Modal({ show, onClose, children, title }) {
 
   useEffect(() => setIsBrowser(true));
 
+  const handleClose = (e) => {
+    e.preventDefault()
+    onClose()
+  } 
   const modalContent = show ? (
     <div className={styles.overlay}>
       <div className={styles.modal}>
         <div className={styles.header}>
-          <a href="#">
-            <FaTImes />
+          <a href="#" onClick={handleClose}>
+            <FaTimes />
           </a>
         </div>
         {title && <div>{title}</div>}
