@@ -14,22 +14,22 @@ export default function EventsPage({ events, total, page }) {
       {events.map((evt) => (
         <EventItem key={evt.id} evt={evt} />
       ))}
-    
+
       <Pagination page={page} total={total} />
     </Layout>
   );
 }
 
-export async function getServerSideProps({ query: { page = 1}}) {
-  const start = +page === 1 ? 0 : (+page - 1) * PER_PAGE 
+export async function getServerSideProps({ query: { page = 1 } }) {
+  const start = +page === 1 ? 0 : (+page - 1) * PER_PAGE;
   // fetch total / count
-    const totalRes = await fetch(
-      `${API_URL}/events/count`
-    );
-    const total = await totalRes.json();
+  const totalRes = await fetch(`${API_URL}/events/count`);
+  const total = await totalRes.json();
 
   // fetch events
-  const eventRes = await fetch(`${API_URL}/events?_sort=date:ASC&_limit=${PER_PAGE}&_start=${start}`);
+  const eventRes = await fetch(
+    `${API_URL}/events?_sort=date:ASC&_limit=${PER_PAGE}&_start=${start}`
+  );
   const events = await eventRes.json();
 
   return {
